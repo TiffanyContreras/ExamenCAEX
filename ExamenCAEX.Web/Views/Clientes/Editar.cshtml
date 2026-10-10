@@ -1,0 +1,70 @@
+﻿@model ExamenCAEX.Web.Models.Clientes.EditarClienteViewModel
+
+@{
+    ViewData["Title"] = "Editar cliente";
+}
+
+<div class="container mt-4">
+    <h2>Editar cliente</h2>
+
+    <form asp-action="Editar"
+          asp-route-id="@Model.ClienteId"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input asp-for="ClienteId" type="hidden" />
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="NIT" class="form-label"></label>
+            <input asp-for="NIT" class="form-control" />
+            <span asp-validation-for="NIT"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Telefono" class="form-label"></label>
+            <input asp-for="Telefono" class="form-control" />
+            <span asp-validation-for="Telefono"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Direccion" class="form-label"></label>
+            <textarea asp-for="Direccion"
+                      class="form-control"></textarea>
+            <span asp-validation-for="Direccion"
+                  class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar cambios
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Cancelar
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

@@ -1,0 +1,116 @@
+﻿@model ExamenCAEX.Application.DTOs.Facturas.FacturaDto
+
+@{
+    ViewData["Title"] = "Detalle de factura";
+}
+
+<div class="container mt-4">
+
+    <h2>Factura @Model.NumeroFactura</h2>
+
+    @if (TempData["MensajeExito"] is string mensaje)
+    {
+        <div class="alert alert-success">
+            @mensaje
+        </div>
+    }
+
+    @if (TempData["MensajeError"] is string error)
+    {
+        <div class="alert alert-danger">
+            @error
+        </div>
+    }
+    <p><strong>Cliente:</strong> @Model.NombreCliente</p>
+    <p><strong>Estado:</strong> @Model.Estado</p>
+    <p>
+        <strong>Fecha:</strong>
+        @Model.FechaEmision.ToString("dd/MM/yyyy HH:mm")
+    </p>
+
+    <table class="table table-bordered mt-4">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var detalle in Model.Detalles)
+            {
+                <tr>
+                    <td>@detalle.NombreProducto</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>Q @detalle.PrecioUnitario.ToString("N2")</td>
+                    <td>Q @detalle.Subtotal.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <h4 class="text-end">
+        Total: Q @Model.Total.ToString("N2")
+    </h4>
+
+    @if (Model.Estado == "ANULADA")
+    {
+        <div class="alert alert-warning mt-3">
+            <strong>Motivo de anulación:</strong>
+            @Model.MotivoAnulacion
+        </div>
+    }
+
+    @if (Model.Estado == "EMITIDA")
+    {
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Anular factura</h5>
+
+                <p class="text-muted">
+                    La anulación conservará los productos
+                    y el total original de la factura.
+                </p>
+
+                <form asp-controller="Facturas"
+                      asp-action="Anular"
+                      asp-route-id="@Model.FacturaId"
+                      method="post"
+                      onsubmit="return confirm('¿Está seguro de anular esta factura?');">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="motivo" class="form-label">
+                            Motivo de anulación
+                        </label>
+
+                        <textarea name="motivo"
+                                  id="motivo"
+                                  class="form-control"
+                                  rows="3"
+                                  maxlength="250"
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Anular factura
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+
+
+    <a asp-controller="Facturas"
+       asp-action="Index"
+       class="btn btn-secondary mt-3">
+        Volver
+    </a>
+
+</div>

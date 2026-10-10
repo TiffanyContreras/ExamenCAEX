@@ -1,0 +1,13 @@
+CREDENCIALES SOLO PARA PRUEBAS 
+
+Administrador
+Usuario: admincaex
+Contrasena: admin123456789
+Rol: ADMIN
+
+Usuario normal
+Usuario: usuario_prueba
+Contrasena: usuario123456789
+Rol: USUARIO
+
+

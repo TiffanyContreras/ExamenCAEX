@@ -1,0 +1,23 @@
+# Visual Studio / .NET
+.vs/
+**/bin/
+**/obj/
+**/TestResults/
+*.user
+*.suo
+*.rsuser
+
+# Configuracion local y secretos
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/secrets.json
+.env
+.env.*
+
+# Archivos locales y temporales
+*.mdf
+*.ldf
+*.log
+*.tmp
+*.bak
+**/publish/

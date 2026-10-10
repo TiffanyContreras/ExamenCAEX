@@ -1,0 +1,100 @@
+﻿
+@model IReadOnlyList<ExamenCAEX.Application.DTOs.Clientes.ClienteDto>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="container mt-4">
+    <h2>Catálogo de clientes</h2>
+    <a asp-controller="Clientes"
+       asp-action="Crear"
+       class="btn btn-primary mb-3">
+        + Nuevo cliente
+    </a>
+    <p class="text-muted">
+        Administración de clientes registrados.
+    </p>
+
+    @if (TempData["MensajeExito"] is string mensaje)
+    {
+        <div class="alert alert-success" role="alert">
+            @mensaje
+        </div>
+    }
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>NIT</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.ClienteId</td>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.NIT</td>
+                    <td>@cliente.Email</td>
+                    <td>@cliente.Telefono</td>
+                    <td>
+                        @if (cliente.Activo)
+                        {
+                            <span class="badge bg-success">
+                                Activo
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                Inactivo
+                            </span>
+                        }
+                    </td>
+
+                  
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Editar"
+                               asp-route-id="@cliente.ClienteId"
+                               class="btn btn-sm btn-outline-primary">
+                                Editar
+                            </a>
+
+                            @if (cliente.Activo)
+                            {
+                                <form asp-action="Desactivar"
+                                      asp-route-id="@cliente.ClienteId"
+                                      method="post"
+                                      onsubmit="return confirm('¿Deseas desactivar este cliente?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger">
+                                        Desactivar
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    </td>
+                    @if (TempData["MensajeError"] is string error)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @error
+                        </div>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,18 @@
+EXAMEN CAEX - SCRIPTS OFICIALES CON USUARIOS DEMO
+
+Base destino: ExamenCAEX | Esquema: examen
+
+ORDEN PARA BASE NUEVA:
+1. 01_ExamenCAEX_Estructura.sql
+2. 03_ExamenCAEX_Usuarios_Iniciales.sql
+3. 02_ExamenCAEX_Verificaciones.sql
+
+SI LA BASE YA EXISTE Y SOLO QUIERES CAMBIAR LAS CLAVES:
+Ejecuta UNICAMENTE 03_ExamenCAEX_Usuarios_Iniciales.sql.
+Este script crea los usuarios si faltan y actualiza la contrasena, rol y estado activo de ambos si ya existen. No elimina otros usuarios.
+
+Los hashes usan ASP.NET Core Identity PasswordHasher V3 (PBKDF2-HMAC-SHA512, 100000 iteraciones, sal aleatoria de 16 bytes, subclave de 32 bytes). No se almacenan contrasenas en texto plano en la BD.
+
+Las claves son solo de demostracion y son debiles.
+
+

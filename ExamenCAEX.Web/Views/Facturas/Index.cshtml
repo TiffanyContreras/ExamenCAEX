@@ -1,0 +1,74 @@
+﻿@model IReadOnlyList<ExamenCAEX.Application.DTOs.Facturas.FacturaDto>
+
+@{
+    ViewData["Title"] = "Facturas";
+}
+
+<div class="container mt-4">
+
+    <h2>Facturas</h2>
+
+    <a asp-controller="Facturas"
+       asp-action="Crear"
+       class="btn btn-primary mb-3">
+        + Nueva factura
+    </a>
+
+    <p class="text-muted">
+        Consulta de facturas registradas.
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-nowrap">Número</th>
+                    <th>Cliente</th>
+                    <th class="text-nowrap">Fecha</th>
+                    <th>Estado</th>
+                    <th>Total</th>
+                    <th class="text-nowrap">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var factura in Model)
+                {
+                    <tr>
+                        <td class="text-nowrap">
+                            @factura.NumeroFactura
+                        </td>
+
+                        <td>
+                            @factura.NombreCliente
+                        </td>
+
+                        <td class="text-nowrap">
+                            @factura.FechaEmision.ToString("dd/MM/yyyy HH:mm")
+                        </td>
+
+                        <td>
+                            @factura.Estado
+                        </td>
+
+                        <td class="text-nowrap">
+                            Q @factura.Total.ToString("N2")
+                        </td>
+
+                        <td class="text-nowrap">
+                            <a asp-controller="Facturas"
+                               asp-action="Detalle"
+                               asp-route-id="@factura.FacturaId"
+                               class="btn btn-sm btn-info">
+                                Ver detalle
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

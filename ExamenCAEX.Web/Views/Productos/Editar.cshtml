@@ -1,0 +1,63 @@
+﻿@model ExamenCAEX.Web.Models.Productos.EditarProductoViewModel
+
+@{
+    ViewData["Title"] = "Editar producto";
+}
+
+<div class="container mt-4">
+    <h2>Editar producto</h2>
+
+    <form asp-action="Editar"
+          asp-route-id="@Model.ProductoId"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input asp-for="ProductoId" type="hidden" />
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="Codigo" class="form-label"></label>
+            <input asp-for="Codigo" class="form-control" />
+            <span asp-validation-for="Codigo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label"></label>
+            <textarea asp-for="Descripcion"
+                      class="form-control"></textarea>
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Precio" class="form-label"></label>
+            <input asp-for="Precio"
+                   type="number"
+                   min="0"
+                   step="0.01"
+                   class="form-control" />
+            <span asp-validation-for="Precio" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar cambios
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Cancelar
+        </a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

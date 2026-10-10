@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ExamenCAEX.Application/ExamenCAEX.Application.csproj" />
+  <Project Path="ExamenCAEX.Domain/ExamenCAEX.Domain.csproj" />
+  <Project Path="ExamenCAEX.Infrastructure/ExamenCAEX.Infrastructure.csproj" />
+  <Project Path="ExamenCAEX.Web/ExamenCAEX.Web.csproj" />
+</Solution>
