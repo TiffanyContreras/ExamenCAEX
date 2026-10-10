@@ -75,14 +75,14 @@ public class CuentaController : Controller
                 usuario.Rol)
         };
 
-        // Crear identidad autenticada
+      
         var identidad = new ClaimsIdentity(
             claims,
             CookieAuthenticationDefaults.AuthenticationScheme);
 
         var principal = new ClaimsPrincipal(identidad);
 
-        // Configurar duración de la sesión
+     
         var propiedades = new AuthenticationProperties
         {
             IsPersistent = modelo.Recordarme,
@@ -91,7 +91,7 @@ public class CuentaController : Controller
                 modelo.Recordarme ? 120 : 30)
         };
 
-        // Iniciar sesión mediante cookies
+      
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal,

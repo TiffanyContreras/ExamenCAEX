@@ -16,7 +16,7 @@ public class CrearFacturaViewModel
     public List<CrearFacturaDetalleViewModel> Detalles
     { get; set; } = new();
 
-    // Opciones disponibles para seleccionar
+    
     [ValidateNever]
     public List<SelectListItem> Clientes
     { get; set; } = new();

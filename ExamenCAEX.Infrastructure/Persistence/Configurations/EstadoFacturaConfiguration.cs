@@ -14,27 +14,27 @@ public sealed class EstadoFacturaConfiguration
     public void Configure(
         EntityTypeBuilder<EstadoFactura> builder)
     {
-        // Tabla existente en SQL Server
+        
         builder.ToTable("EstadosFactura", "examen");
 
-        // Clave primaria
+     
         builder.HasKey(e => e.EstadoFacturaId);
 
         builder.Property(e => e.EstadoFacturaId)
             .ValueGeneratedOnAdd();
 
-        // Código obligatorio
+       
         builder.Property(e => e.Codigo)
             .IsRequired()
             .IsUnicode(false)
             .HasMaxLength(20);
 
-        // Descripción obligatoria
+       
         builder.Property(e => e.Descripcion)
             .IsRequired()
             .HasMaxLength(100);
 
-        // Restricción de unicidad existente
+       
         builder.HasAlternateKey(e => e.Codigo)
             .HasName("UQ_EstadosFactura_Codigo");
     }

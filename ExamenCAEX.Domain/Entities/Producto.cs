@@ -17,7 +17,7 @@ public class Producto
 
     public DateTime FechaRegistro { get; private set; }
 
-    // Constructor para Entity Framework Core
+   
     private Producto() { }
 
     public Producto(

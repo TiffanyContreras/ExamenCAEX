@@ -23,7 +23,7 @@ public class Cliente
 
     public DateTime FechaRegistro { get; private set; }
 
-    // Constructor requerido por Entity Framework Core
+
     private Cliente() { }
 
     public Cliente(

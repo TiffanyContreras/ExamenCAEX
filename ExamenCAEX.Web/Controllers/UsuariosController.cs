@@ -16,14 +16,14 @@ public class UsuariosController : Controller
         _usuarioService = usuarioService;
     }
 
-    // GET: /Usuarios/Crear
+   
     [HttpGet]
     public IActionResult Crear()
     {
         return View(new CrearUsuarioViewModel());
     }
 
-    // POST: /Usuarios/Crear
+   
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Crear(

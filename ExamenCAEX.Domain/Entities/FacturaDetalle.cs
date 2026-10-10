@@ -21,7 +21,7 @@ public class FacturaDetalle
 
     public decimal Subtotal { get; private set; }
 
-    // Constructor para Entity Framework Core
+
     private FacturaDetalle() { }
 
     public FacturaDetalle(

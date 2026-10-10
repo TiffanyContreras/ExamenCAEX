@@ -32,7 +32,7 @@ public class Factura
     public IReadOnlyCollection<FacturaDetalle> Detalles =>
         _detalles.AsReadOnly();
 
-    // Constructor para Entity Framework Core
+   
     private Factura() { }
 
     public Factura(

@@ -32,7 +32,7 @@ public sealed class FacturaService : IFacturaService
     {
         ArgumentNullException.ThrowIfNull(dto);
 
-        // 1. Validar el cliente
+      
         var cliente = await _clienteService.ObtenerPorIdAsync(
             dto.ClienteId,
             cancellationToken);
@@ -43,14 +43,14 @@ public sealed class FacturaService : IFacturaService
                 "El cliente no existe o está inactivo.");
         }
 
-        // 2. Validar que existan detalles
+        
         if (dto.Detalles is null || dto.Detalles.Count == 0)
         {
             throw new InvalidOperationException(
                 "La factura debe contener al menos un producto.");
         }
 
-        // 3. Evitar productos repetidos
+       
         if (dto.Detalles
             .GroupBy(d => d.ProductoId)
             .Any(g => g.Count() > 1))
@@ -59,7 +59,7 @@ public sealed class FacturaService : IFacturaService
                 "No se puede agregar el mismo producto dos veces.");
         }
 
-        // 4. Validar productos y obtener precios reales
+       
         var detallesValidados =
             new List<(int ProductoId, int Cantidad, decimal Precio)>();
 
@@ -88,7 +88,7 @@ public sealed class FacturaService : IFacturaService
             ));
         }
 
-        // 5. Obtener el estado inicial
+       
         var estado = await _facturaRepository
             .ObtenerEstadoPorCodigoAsync(
                 "EMITIDA",
@@ -100,17 +100,17 @@ public sealed class FacturaService : IFacturaService
                 "No se encontró el estado EMITIDA.");
         }
 
-        // 6. Generar número único
+      
         var numeroFactura = await _facturaRepository
             .GenerarNumeroFacturaAsync(cancellationToken);
 
-        // 7. Crear encabezado
+      
         var factura = new Factura(
             numeroFactura,
             dto.ClienteId,
             estado.EstadoFacturaId);
 
-        // 8. Agregar los detalles
+       
         foreach (var detalle in detallesValidados)
         {
             factura.AgregarDetalle(
@@ -119,10 +119,10 @@ public sealed class FacturaService : IFacturaService
                 detalle.Precio);
         }
 
-        // 9. Verificar que la factura sea válida
+       
         factura.ValidarParaEmitir();
 
-        // 10. Guardar encabezado y detalles
+     
         await _facturaRepository.AgregarAsync(
             factura,
             cancellationToken);
@@ -130,7 +130,7 @@ public sealed class FacturaService : IFacturaService
         await _facturaRepository.GuardarCambiosAsync(
             cancellationToken);
 
-        // 11. Devolver el ID generado
+       
         return factura.FacturaId;
     }
 
@@ -174,7 +174,7 @@ public sealed class FacturaService : IFacturaService
         int facturaId,
         CancellationToken cancellationToken = default)
     {
-        // 1. Buscar la factura
+        
         var factura = await _facturaRepository.ObtenerPorIdAsync(
             facturaId,
             cancellationToken);
@@ -184,12 +184,12 @@ public sealed class FacturaService : IFacturaService
             return null;
         }
 
-        // 2. Obtener los datos del cliente
+       
         var cliente = await _clienteService.ObtenerPorIdAsync(
             factura.ClienteId,
             cancellationToken);
 
-        // 3. Preparar los detalles
+       
         var detalles = new List<FacturaDetalleDto>();
 
         foreach (var detalle in factura.Detalles)
@@ -209,7 +209,7 @@ public sealed class FacturaService : IFacturaService
             ));
         }
 
-        // 4. Construir el resultado
+        
         return new FacturaDto(
             factura.FacturaId,
             factura.NumeroFactura,
@@ -231,14 +231,14 @@ public sealed class FacturaService : IFacturaService
         string motivo,
         CancellationToken cancellationToken = default)
     {
-        // 1. Validar el ID
+       
         if (facturaId <= 0)
         {
             throw new InvalidOperationException(
                 "El ID de la factura no es válido.");
         }
 
-        // 2. Validar el motivo
+       
         if (string.IsNullOrWhiteSpace(motivo))
         {
             throw new InvalidOperationException(
@@ -247,7 +247,7 @@ public sealed class FacturaService : IFacturaService
 
         motivo = motivo.Trim();
 
-        // 3. Buscar la factura
+      
         var factura = await _facturaRepository.ObtenerPorIdAsync(
             facturaId,
             cancellationToken);
@@ -258,14 +258,14 @@ public sealed class FacturaService : IFacturaService
                 "La factura no existe.");
         }
 
-        // 4. Verificar que esté emitida
+       
         if (factura.Estado.Codigo != "EMITIDA")
         {
             throw new InvalidOperationException(
                 "Solo se pueden anular facturas emitidas.");
         }
 
-        // 5. Buscar el estado ANULADA
+      
         var estadoAnulada = await _facturaRepository
             .ObtenerEstadoPorCodigoAsync(
                 "ANULADA",
@@ -277,12 +277,12 @@ public sealed class FacturaService : IFacturaService
                 "No se encontró el estado ANULADA.");
         }
 
-        // 6. Aplicar la anulación
+       
         factura.Anular(
             motivo,
             estadoAnulada.EstadoFacturaId);
 
-        // 7. Guardar los cambios
+       
         await _facturaRepository.GuardarCambiosAsync(
             cancellationToken);
     }

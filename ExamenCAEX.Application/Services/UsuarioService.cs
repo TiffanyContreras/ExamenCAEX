@@ -59,7 +59,7 @@ public sealed class UsuarioService : IUsuarioService
             usuarioTemporal,
             password);
 
-        // Entidad definitiva con contraseña protegida.
+      
         var usuario = new Usuario(
             nombreUsuario,
             passwordHash,

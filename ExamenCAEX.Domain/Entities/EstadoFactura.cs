@@ -9,7 +9,7 @@ public class EstadoFactura
 
     public string Descripcion { get; private set; } = string.Empty;
 
-    // Constructor requerido por Entity Framework Core
+  
     private EstadoFactura() { }
 
     public EstadoFactura(string codigo, string descripcion)
