@@ -8,7 +8,7 @@ Aplicación web de gestión de clientes, productos y facturación, desarrollada 
 - `ExamenCAEX.Application`: contratos, DTO y servicios de aplicación.
 - `ExamenCAEX.Infrastructure`: acceso a datos, Entity Framework Core e inyección de dependencias.
 - `ExamenCAEX.Web`: controladores MVC, vistas, autenticación y configuración web.
-- `Database`: scripts SQL de instalación, usuarios iniciales y verificaciones.
+- `BD_ExamenCAEX`: scripts SQL de instalación, usuarios iniciales y verificaciones.
 
 ## Funcionalidades
 
@@ -26,7 +26,7 @@ Aplicación web de gestión de clientes, productos y facturación, desarrollada 
 
 ## Preparación de la base de datos
 
-En SQL Server, ejecutar **en este orden** los archivos de `Database`:
+En SQL Server, ejecutar **en este orden** los archivos de `BD_ExamenCAEX`:
 
 1. `01_ExamenCAEX_Estructura.sql`: crea la base `ExamenCAEX`, el esquema `examen` y los objetos necesarios si no existen.
 2. `03_ExamenCAEX_Usuarios_Iniciales.sql`: crea o actualiza dos cuentas de demostración (administrador y usuario normal).
